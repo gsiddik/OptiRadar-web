@@ -23,6 +23,16 @@ import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
 import { nativePostMessage } from './NativeInterface';
 
+// Only a plain web address may be followed; anything else (for example a script URL) is ignored.
+const webAddress = (value) => {
+  try {
+    const url = new URL(value);
+    return ['http:', 'https:'].includes(url.protocol) ? url.toString() : null;
+  } catch {
+    return null;
+  }
+};
+
 const BottomMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,7 +53,8 @@ const BottomMenu = () => {
     Array.isArray(user.attributes?.optinexusApps) ? user.attributes.optinexusApps : []
   ).filter((app) => {
     try {
-      return new URL(app.url).origin !== window.location.origin;
+      const url = new URL(app.url);
+      return ['http:', 'https:'].includes(url.protocol) && url.origin !== window.location.origin;
     } catch {
       return false;
     }
@@ -98,8 +109,15 @@ const BottomMenu = () => {
 
     await fetch('/api/session', { method: 'DELETE' });
     nativePostMessage('logout');
-    navigate('/login');
     dispatch(sessionActions.updateUser(null));
+
+    // Signed in through the identity provider: let it sign the user out of every application.
+    const providerLogout = webAddress(user.attributes?.optinexusLogoutUrl);
+    if (providerLogout) {
+      window.location.assign(providerLogout);
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleSelection = (event, value) => {
