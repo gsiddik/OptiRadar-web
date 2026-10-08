@@ -9,6 +9,7 @@ import {
   MenuItem,
   Typography,
   Badge,
+  Divider,
 } from '@mui/material';
 
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -36,6 +37,17 @@ const BottomMenu = () => {
   const selectedDeviceId = useSelector((state) => state.devices.selectedId);
 
   const [anchorEl, setAnchorEl] = useState(null);
+
+  // Other applications the identity provider lets this user open (set at sign-in); the current one is left out.
+  const apps = (
+    Array.isArray(user.attributes?.optinexusApps) ? user.attributes.optinexusApps : []
+  ).filter((app) => {
+    try {
+      return new URL(app.url).origin !== window.location.origin;
+    } catch {
+      return false;
+    }
+  });
 
   const currentSelection = () => {
     if (location.pathname === `/settings/user/${user.id}`) {
@@ -165,6 +177,13 @@ const BottomMenu = () => {
         <MenuItem onClick={handleAccount}>
           <Typography color="textPrimary">{t('settingsUser')}</Typography>
         </MenuItem>
+        {apps.length > 0 && <Divider />}
+        {apps.map((app) => (
+          <MenuItem key={app.url} component="a" href={app.url} onClick={() => setAnchorEl(null)}>
+            <Typography color="textPrimary">{app.name}</Typography>
+          </MenuItem>
+        ))}
+        {apps.length > 0 && <Divider />}
         <MenuItem onClick={handleLogout}>
           <Typography color="error">{t('loginLogout')}</Typography>
         </MenuItem>
