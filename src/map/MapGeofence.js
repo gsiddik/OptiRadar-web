@@ -17,7 +17,7 @@ const MapGeofence = () => {
         key: 'fill',
         type: 'fill',
         filter: ['all', ['==', '$type', 'Polygon']],
-        metadata: { 'traccar:title': t('sharedGeofences') },
+        metadata: { 'optiradar:title': t('sharedGeofences') },
         paint: {
           'fill-color': ['get', 'color'],
           'fill-outline-color': ['get', 'color'],
@@ -27,7 +27,7 @@ const MapGeofence = () => {
       {
         key: 'line',
         type: 'line',
-        metadata: { 'traccar:title': t('sharedGeofences') },
+        metadata: { 'optiradar:title': t('sharedGeofences') },
         paint: {
           'line-color': ['get', 'color'],
           'line-width': ['get', 'width'],
@@ -37,7 +37,7 @@ const MapGeofence = () => {
       {
         key: 'title',
         type: 'symbol',
-        metadata: { 'traccar:title': t('sharedGeofences') },
+        metadata: { 'optiradar:title': t('sharedGeofences') },
         layout: {
           'text-field': '{name}',
           'text-font': findFonts(map),

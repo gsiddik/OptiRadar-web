@@ -1,5 +1,5 @@
 {
-  "name": "traccar",
+  "name": "optiradar-web",
   "version": "6.16.0",
   "type": "module",
   "private": true,
@@ -42,7 +42,7 @@
   "scripts": {
     "start": "vite --host",
     "build": "vite build",
-    "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg",
+    "generate-brand-assets": "python3 branding/generate.py",
     "lint": "eslint --max-warnings 0 .",
     "lint:fix": "eslint --fix --max-warnings 0 ."
   },

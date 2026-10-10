@@ -29,7 +29,7 @@ const MapLiveRoutes = ({ deviceIds }) => {
     layers: [
       {
         type: 'line',
-        metadata: { 'traccar:title': t('mapLiveRoutes') },
+        metadata: { 'optiradar:title': t('mapLiveRoutes') },
         layout: {
           'line-join': 'round',
           'line-cap': 'round',

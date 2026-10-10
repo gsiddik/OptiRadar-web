@@ -41,7 +41,7 @@ const PoiMap = () => {
         key: 'fill',
         type: 'fill',
         filter: ['==', '$type', 'Polygon'],
-        metadata: { 'traccar:title': t('mapPoiLayer') },
+        metadata: { 'optiradar:title': t('mapPoiLayer') },
         paint: {
           'fill-color': ['coalesce', ['get', 'fill'], theme.palette.geometry.main],
           'fill-opacity': ['coalesce', ['get', 'fill-opacity'], 0.3],
@@ -50,7 +50,7 @@ const PoiMap = () => {
       {
         key: 'point',
         type: 'circle',
-        metadata: { 'traccar:title': t('mapPoiLayer') },
+        metadata: { 'optiradar:title': t('mapPoiLayer') },
         paint: {
           'circle-radius': 5,
           'circle-color': ['coalesce', ['get', 'icon-color'], theme.palette.geometry.main],
@@ -59,7 +59,7 @@ const PoiMap = () => {
       {
         key: 'line',
         type: 'line',
-        metadata: { 'traccar:title': t('mapPoiLayer') },
+        metadata: { 'optiradar:title': t('mapPoiLayer') },
         paint: {
           'line-color': ['coalesce', ['get', 'stroke'], theme.palette.geometry.main],
           'line-width': ['coalesce', ['get', 'stroke-width'], 2],
@@ -69,7 +69,7 @@ const PoiMap = () => {
       {
         key: 'title',
         type: 'symbol',
-        metadata: { 'traccar:title': t('mapPoiLayer') },
+        metadata: { 'optiradar:title': t('mapPoiLayer') },
         layout: {
           'text-field': '{name}',
           'text-anchor': 'bottom',

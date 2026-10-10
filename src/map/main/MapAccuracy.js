@@ -13,7 +13,7 @@ const MapAccuracy = ({ positions }) => {
       {
         type: 'fill',
         filter: ['all', ['==', '$type', 'Polygon']],
-        metadata: { 'traccar:title': t('positionAccuracy') },
+        metadata: { 'optiradar:title': t('positionAccuracy') },
         paint: {
           'fill-color': theme.palette.geometry.main,
           'fill-outline-color': theme.palette.geometry.main,

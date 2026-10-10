@@ -20,7 +20,7 @@ import { useTranslation } from '../../common/components/LocalizationProvider';
 const collectTitles = () => {
   const titles = [];
   map.getStyle()?.layers?.forEach((layer) => {
-    const title = layer.metadata?.['traccar:title'];
+    const title = layer.metadata?.['optiradar:title'];
     if (title && !titles.includes(title)) {
       titles.push(title);
     }
@@ -30,7 +30,7 @@ const collectTitles = () => {
 
 const applyVisibility = (hidden) => {
   map.getStyle()?.layers?.forEach((layer) => {
-    const title = layer.metadata?.['traccar:title'];
+    const title = layer.metadata?.['optiradar:title'];
     if (title) {
       const visibility = hidden.includes(title) ? 'none' : 'visible';
       if ((map.getLayoutProperty(layer.id, 'visibility') || 'visible') !== visibility) {
