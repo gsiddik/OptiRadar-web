@@ -9,7 +9,7 @@ const MapOverlayLayer = ({ overlay }) => {
     layers: [
       {
         type: 'raster',
-        metadata: { 'traccar:title': overlay.title },
+        metadata: { 'optiradar:title': overlay.title },
         layout: {
           visibility: 'visible',
         },
