@@ -32,6 +32,8 @@ import LogoImage from './LogoImage';
 import { useCatch } from '../reactHelper';
 import QrCodeDialog from '../common/components/QrCodeDialog';
 import PasswordField from '../common/components/PasswordField';
+import { openIdStartUrl, takeTenantHint } from '../common/util/tenantHint';
+import { forgetSessionEnded, peekSessionEnded } from '../common/util/sessionEvents';
 
 const useStyles = makeStyles()((theme) => ({
   options: {
@@ -83,6 +85,9 @@ const LoginPage = () => {
   const [openIdFailed, setOpenIdFailed] = useState(
     () => window.sessionStorage.getItem('openIdFailed') === 'true',
   );
+
+  // Why the previous session ended (read once): the organization ended the access, or the session simply expired.
+  const [sessionEnded] = useState(() => peekSessionEnded());
 
   const [email, setEmail] = usePersistedState('loginEmail', '');
   const [password, setPassword] = useState('');
@@ -148,13 +153,29 @@ const LoginPage = () => {
   handleTokenLoginRef.current = handleTokenLogin;
 
   const handleOpenIdLogin = () => {
-    document.location = '/api/session/openid/auth';
+    document.location = openIdStartUrl(takeTenantHint());
   };
 
   useEffect(() => nativePostMessage('authentication'), []);
 
+  // Opened from another product's switcher with a tenant hint: start the single sign-on at once, in that tenant. The
+  // hint is used up here, so a failed sign-in shows the error instead of starting again.
+  useEffect(() => {
+    if (!openIdEnabled || openIdFailed || sessionEnded) {
+      if (openIdFailed || sessionEnded) {
+        takeTenantHint();
+      }
+      return;
+    }
+    const hint = takeTenantHint();
+    if (hint) {
+      document.location = openIdStartUrl(hint);
+    }
+  }, [openIdEnabled, openIdFailed, sessionEnded]);
+
   useEffect(() => {
     window.sessionStorage.removeItem('openIdFailed');
+    forgetSessionEnded();
   }, []);
 
   useEffect(() => {
@@ -206,6 +227,13 @@ const LoginPage = () => {
       </div>
       <div className={classes.container}>
         {useMediaQuery(theme.breakpoints.down('lg')) && <LogoImage />}
+        {sessionEnded && (
+          <Alert severity="warning">
+            {sessionEnded === 'governance_access_revoked'
+              ? t('apiError_governance_access_revoked')
+              : t('loginSessionEnded')}
+          </Alert>
+        )}
         {openIdFailed && (
           <Alert severity="error" onClose={() => setOpenIdFailed(false)}>
             {t('loginOpenIdFailed')}

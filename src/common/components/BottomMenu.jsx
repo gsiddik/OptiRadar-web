@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -9,7 +9,6 @@ import {
   MenuItem,
   Typography,
   Badge,
-  Divider,
 } from '@mui/material';
 
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -22,16 +21,8 @@ import { sessionActions } from '../../store';
 import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
 import { nativePostMessage } from './NativeInterface';
-
-// Only a plain web address may be followed; anything else (for example a script URL) is ignored.
-const webAddress = (value) => {
-  try {
-    const url = new URL(value);
-    return ['http:', 'https:'].includes(url.protocol) ? url.toString() : null;
-  } catch {
-    return null;
-  }
-};
+import { ProductMenuItems } from './ProductSwitcher';
+import webAddress from '../util/webAddress';
 
 const BottomMenu = () => {
   const navigate = useNavigate();
@@ -47,18 +38,7 @@ const BottomMenu = () => {
   const selectedDeviceId = useSelector((state) => state.devices.selectedId);
 
   const [anchorEl, setAnchorEl] = useState(null);
-
-  // Other applications the identity provider lets this user open (set at sign-in); the current one is left out.
-  const apps = (
-    Array.isArray(user.attributes?.optinexusApps) ? user.attributes.optinexusApps : []
-  ).filter((app) => {
-    try {
-      const url = new URL(app.url);
-      return ['http:', 'https:'].includes(url.protocol) && url.origin !== window.location.origin;
-    } catch {
-      return false;
-    }
-  });
+  const menuActionsRef = useRef(null);
 
   const currentSelection = () => {
     if (location.pathname === `/settings/user/${user.id}`) {
@@ -191,17 +171,21 @@ const BottomMenu = () => {
           <BottomNavigationAction label={t('settingsUser')} icon={<PersonIcon />} value="account" />
         )}
       </BottomNavigation>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        action={menuActionsRef}
+      >
         <MenuItem onClick={handleAccount}>
           <Typography color="textPrimary">{t('settingsUser')}</Typography>
         </MenuItem>
-        {apps.length > 0 && <Divider />}
-        {apps.map((app) => (
-          <MenuItem key={app.url} component="a" href={app.url} onClick={() => setAnchorEl(null)}>
-            <Typography color="textPrimary">{app.name}</Typography>
-          </MenuItem>
-        ))}
-        {apps.length > 0 && <Divider />}
+        <ProductMenuItems
+          open={Boolean(anchorEl)}
+          onNavigate={() => setAnchorEl(null)}
+          onLayout={() => menuActionsRef.current?.updatePosition()}
+          trailingDivider
+        />
         <MenuItem onClick={handleLogout}>
           <Typography color="error">{t('loginLogout')}</Typography>
         </MenuItem>

@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from './LocalizationProvider';
 import BackIcon from './BackIcon';
+import { ProductSwitcherButton } from './ProductSwitcher';
 
 const useStyles = makeStyles()((theme, { miniVariant }) => ({
   root: {
@@ -129,10 +130,15 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
                 <PageTitle breadcrumbs={breadcrumbs} />
               </>
             )}
+            {!miniVariant && (
+              <span style={{ marginLeft: 'auto' }}>
+                <ProductSwitcherButton />
+              </span>
+            )}
             <IconButton
               color="inherit"
               edge="start"
-              sx={{ ml: miniVariant ? -2 : 'auto' }}
+              sx={{ ml: miniVariant ? -2 : 0 }}
               onClick={toggleDrawer}
             >
               {miniVariant !== (theme.direction === 'rtl') ? (

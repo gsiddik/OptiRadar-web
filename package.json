@@ -44,7 +44,8 @@
     "build": "vite build",
     "generate-brand-assets": "python3 branding/generate.py",
     "lint": "eslint --max-warnings 0 .",
-    "lint:fix": "eslint --fix --max-warnings 0 ."
+    "lint:fix": "eslint --fix --max-warnings 0 .",
+    "test": "node --import ./tests/unit/register.mjs --test \"tests/unit/**/*.test.js\""
   },
   "browserslist": {
     "production": [

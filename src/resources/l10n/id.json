@@ -738,5 +738,12 @@
     "apiError_delegation_tenant_not_active": "Organisasi Anda tidak aktif.",
     "apiError_delegation_application_not_active": "OptiRadar tidak aktif untuk organisasi Anda.",
     "apiError_delegation_application_not_subscribed": "Organisasi Anda tidak berlangganan OptiRadar.",
-    "apiError_delegation_resource_not_found": "Item ini sudah tidak ada."
+    "apiError_delegation_resource_not_found": "Item ini sudah tidak ada.",
+    "loginSessionEnded": "Sesi Anda berakhir. Silakan masuk lagi.",
+    "productSwitcherTitle": "Buka produk lain",
+    "productSwitcherLoading": "Memeriksa yang dapat Anda buka...",
+    "productSwitcherUnavailable": "Daftar produk tidak dapat ditampilkan saat ini.",
+    "productSwitcherNone": "Tidak ada produk lain yang tersedia untuk Anda.",
+    "productSwitcherGone": "Produk ini tidak lagi tersedia untuk Anda.",
+    "productSwitcherCheckFailed": "Akses Anda tidak dapat diperiksa. Coba lagi sebentar lagi."
 }

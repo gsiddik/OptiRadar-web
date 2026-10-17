@@ -9,6 +9,7 @@ import { devicesActions } from './store';
 import { generateLoginToken } from './common/components/NativeInterface';
 import { useLocalization } from './common/components/LocalizationProvider';
 import fetchOrThrow from './common/util/fetchOrThrow';
+import { rememberTenantHint } from './common/util/tenantHint';
 
 const CombinedReportPage = lazy(() => import('./reports/CombinedReportPage'));
 const PositionsReportPage = lazy(() => import('./reports/PositionsReportPage'));
@@ -71,7 +72,7 @@ const Navigation = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const hasQueryParams = ['locale', 'token', 'uniqueId', 'openid'].some((key) =>
+  const hasQueryParams = ['locale', 'token', 'uniqueId', 'openid', 'tenant_hint'].some((key) =>
     searchParams.has(key),
   );
 
@@ -114,6 +115,13 @@ const Navigation = () => {
           window.sessionStorage.setItem('openIdFailed', 'true');
         }
         newParams.delete('openid');
+      }
+
+      if (searchParams.has('tenant_hint')) {
+        // From another product's switcher: remembered for the sign-in start (only a tenant id or code), then removed
+        // from the address so it is not shared or reused.
+        rememberTenantHint(searchParams.get('tenant_hint'));
+        newParams.delete('tenant_hint');
       }
 
       setSearchParams(newParams, { replace: true });

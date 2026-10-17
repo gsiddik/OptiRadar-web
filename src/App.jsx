@@ -13,6 +13,7 @@ import TermsDialog from './common/components/TermsDialog';
 import Loader from './common/components/Loader';
 import fetchOrThrow from './common/util/fetchOrThrow';
 import GovernanceController from './GovernanceController';
+import SessionGuard from './common/components/SessionGuard';
 
 const useStyles = makeStyles()(() => ({
   page: {
@@ -75,6 +76,7 @@ const App = () => {
   }
   return (
     <>
+      <SessionGuard />
       <SocketController />
       <GovernanceController />
       <CachingController />

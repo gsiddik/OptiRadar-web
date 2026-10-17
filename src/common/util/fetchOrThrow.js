@@ -1,4 +1,5 @@
 import ApiError from './ApiError';
+import { announceSessionEnded, isSessionCall } from './sessionEvents';
 
 export default async (input, init) => {
   let response;
@@ -11,7 +12,11 @@ export default async (input, init) => {
     throw ApiError.fromNetwork(error);
   }
   if (!response.ok) {
-    throw await ApiError.fromResponse(response);
+    const error = await ApiError.fromResponse(response);
+    if (error.sessionEnded && !isSessionCall(input)) {
+      announceSessionEnded(error);
+    }
+    throw error;
   }
   return response;
 };

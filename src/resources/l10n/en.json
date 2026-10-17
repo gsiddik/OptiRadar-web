@@ -738,5 +738,12 @@
     "apiError_delegation_tenant_not_active": "Your organization is not active.",
     "apiError_delegation_application_not_active": "OptiRadar is not active for your organization.",
     "apiError_delegation_application_not_subscribed": "Your organization has no subscription to OptiRadar.",
-    "apiError_delegation_resource_not_found": "This item no longer exists."
+    "apiError_delegation_resource_not_found": "This item no longer exists.",
+    "loginSessionEnded": "Your session ended. Sign in again.",
+    "productSwitcherTitle": "Open another product",
+    "productSwitcherLoading": "Checking what you can open...",
+    "productSwitcherUnavailable": "Products cannot be listed right now.",
+    "productSwitcherNone": "No other product is available to you.",
+    "productSwitcherGone": "This product is no longer available to you.",
+    "productSwitcherCheckFailed": "Your access could not be checked. Try again in a moment."
 }
