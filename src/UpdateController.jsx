@@ -50,7 +50,12 @@ const UpdateController = () => {
         severity="info"
         variant="filled"
         action={
-          <IconButton size="small" color="inherit" onClick={() => updateServiceWorker(true)}>
+          <IconButton
+            size="small"
+            color="inherit"
+            aria-label={t('settingsUpdateNow')}
+            onClick={() => updateServiceWorker(true)}
+          >
             <RefreshIcon fontSize="small" />
           </IconButton>
         }

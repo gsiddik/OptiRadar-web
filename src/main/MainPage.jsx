@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DeviceList from './DeviceList';
 import BottomMenu from '../common/components/BottomMenu';
 import StatusCard from '../common/components/StatusCard';
+import RouteErrorBoundary from '../common/components/RouteErrorBoundary';
 import { devicesActions } from '../store';
 import usePersistedState from '../common/util/usePersistedState';
 import EventsDrawer from './EventsDrawer';
@@ -115,13 +116,15 @@ const MainPage = () => {
   return (
     <div className={classes.root}>
       {desktop && (
-        <Suspense fallback={null}>
-          <MainMap
-            filteredPositions={filteredPositions}
-            selectedPosition={selectedPosition}
-            onEventsClick={onEventsClick}
-          />
-        </Suspense>
+        <RouteErrorBoundary layout="compact" home={false}>
+          <Suspense fallback={null}>
+            <MainMap
+              filteredPositions={filteredPositions}
+              selectedPosition={selectedPosition}
+              onEventsClick={onEventsClick}
+            />
+          </Suspense>
+        </RouteErrorBoundary>
       )}
       <div className={classes.sidebar}>
         <Paper square elevation={3} className={classes.header}>
@@ -142,13 +145,15 @@ const MainPage = () => {
         <div className={classes.middle}>
           {!desktop && (
             <div className={classes.contentMap}>
-              <Suspense fallback={null}>
-                <MainMap
-                  filteredPositions={filteredPositions}
-                  selectedPosition={selectedPosition}
-                  onEventsClick={onEventsClick}
-                />
-              </Suspense>
+              <RouteErrorBoundary layout="compact" home={false}>
+                <Suspense fallback={null}>
+                  <MainMap
+                    filteredPositions={filteredPositions}
+                    selectedPosition={selectedPosition}
+                    onEventsClick={onEventsClick}
+                  />
+                </Suspense>
+              </RouteErrorBoundary>
             </div>
           )}
           <Paper

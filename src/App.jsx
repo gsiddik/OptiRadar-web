@@ -14,6 +14,7 @@ import Loader from './common/components/Loader';
 import fetchOrThrow from './common/util/fetchOrThrow';
 import GovernanceController from './GovernanceController';
 import SessionGuard from './common/components/SessionGuard';
+import RouteErrorBoundary from './common/components/RouteErrorBoundary';
 
 const useStyles = makeStyles()(() => ({
   page: {
@@ -83,7 +84,9 @@ const App = () => {
       <UpdateController />
       <MotionController />
       <div className={classes.page}>
-        <Outlet />
+        <RouteErrorBoundary>
+          <Outlet />
+        </RouteErrorBoundary>
       </div>
       {!desktop && (
         <div className={classes.menu}>

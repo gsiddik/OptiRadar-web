@@ -169,6 +169,27 @@ const getDefaultLanguage = () => {
   return 'en';
 };
 
+// For the screens that are shown when the localization itself could not start: the stored language, and its texts, or
+// English when they cannot be loaded.
+export const storedLanguage = () => {
+  try {
+    const stored = window.localStorage.getItem('language');
+    const language = stored ? JSON.parse(stored) : null;
+    return language in languages ? language : getDefaultLanguage();
+  } catch {
+    return getDefaultLanguage();
+  }
+};
+
+export const loadTranslations = async (language) => {
+  if (language === 'en' || !(language in languages)) return en;
+  try {
+    return (await loadLocale(language)).data;
+  } catch {
+    return en;
+  }
+};
+
 const LocalizationContext = createContext({
   languages,
   language: 'en',

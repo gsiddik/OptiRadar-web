@@ -18,11 +18,46 @@
       }
       @keyframes ll {to{transform: rotate(1turn)}}
     </style>
+    <script>
+      // The app could not even start (a page of an older version whose files are gone, or no connection): say so, with
+      // a way on. The words are here because nothing else is loaded yet. Vite removes an onerror attribute from the
+      // built page, so the failure of the entry script is caught here (a failed file does not bubble, so: capture).
+      function entryFailed() {
+        var id = /^id\b/i.test(navigator.language || '');
+        var loader = document.querySelector('.loader');
+        if (loader) loader.style.display = 'none';
+        var box = document.createElement('div');
+        box.setAttribute('role', 'alert');
+        box.style.cssText = 'font-family:sans-serif;max-width:480px;margin:20vh auto;padding:16px;text-align:center';
+        var title = document.createElement('h2');
+        title.textContent = id ? 'Aplikasi tidak dapat dimuat' : 'The app could not be loaded';
+        var detail = document.createElement('p');
+        detail.textContent = id
+          ? 'Periksa koneksi Anda lalu muat ulang. Jika berlanjut, versi baru mungkin baru saja dipublikasikan.'
+          : 'Check your connection and reload. If it keeps happening, a new version may have just been published.';
+        var button = document.createElement('button');
+        button.textContent = id ? 'Muat ulang' : 'Reload';
+        button.style.cssText = 'font-size:16px;padding:8px 24px;cursor:pointer';
+        button.onclick = function () { window.location.reload(); };
+        box.appendChild(title);
+        box.appendChild(detail);
+        box.appendChild(button);
+        document.getElementById('root').appendChild(box);
+      }
+      window.addEventListener(
+        'error',
+        function (event) {
+          var target = event.target;
+          if (target && target.tagName === 'SCRIPT' && target.type === 'module') entryFailed();
+        },
+        true,
+      );
+    </script>
   </head>
   <body>
     <noscript>Enable JavaScript to use ${title}.</noscript>
     <div id="root" class="root"></div>
     <div class="loader"></div>
-    <script type="module" src="/src/index.jsx" onerror="alert('Loading error.')"></script>
+    <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>

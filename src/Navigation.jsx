@@ -10,6 +10,7 @@ import { generateLoginToken } from './common/components/NativeInterface';
 import { useLocalization } from './common/components/LocalizationProvider';
 import fetchOrThrow from './common/util/fetchOrThrow';
 import { rememberTenantHint } from './common/util/tenantHint';
+import RouteErrorBoundary from './common/components/RouteErrorBoundary';
 
 const CombinedReportPage = lazy(() => import('./reports/CombinedReportPage'));
 const PositionsReportPage = lazy(() => import('./reports/PositionsReportPage'));
@@ -133,84 +134,86 @@ const Navigation = () => {
     return <Loader />;
   }
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/change-server" element={<ChangeServerPage />} />
-        <Route path="/" element={<App />}>
-          <Route index element={<MainPage />} />
+    <RouteErrorBoundary home={false}>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/change-server" element={<ChangeServerPage />} />
+          <Route path="/" element={<App />}>
+            <Route index element={<MainPage />} />
 
-          <Route path="position/:id" element={<PositionPage />} />
-          <Route path="network/:positionId" element={<NetworkPage />} />
-          <Route path="event/:id" element={<EventPage />} />
-          <Route path="replay" element={<ReplayPage />} />
-          <Route path="geofences" element={<GeofencesPage />} />
-          <Route path="emulator" element={<EmulatorPage />} />
-          <Route path="stream" element={<StreamPage />} />
+            <Route path="position/:id" element={<PositionPage />} />
+            <Route path="network/:positionId" element={<NetworkPage />} />
+            <Route path="event/:id" element={<EventPage />} />
+            <Route path="replay" element={<ReplayPage />} />
+            <Route path="geofences" element={<GeofencesPage />} />
+            <Route path="emulator" element={<EmulatorPage />} />
+            <Route path="stream" element={<StreamPage />} />
 
-          <Route path="settings">
-            <Route path="access/users" element={<AccessUsersPage />} />
-            <Route path="access/roles" element={<AccessRolesPage />} />
-            <Route path=":type/:id/share" element={<SharePage />} />
-            <Route path="accumulators/:deviceId" element={<AccumulatorsPage />} />
-            <Route path="announcement" element={<AnnouncementPage />} />
-            <Route path="calendars" element={<CalendarsPage />} />
-            <Route path="calendar/:id" element={<CalendarPage />} />
-            <Route path="calendar" element={<CalendarPage />} />
-            <Route path="commands" element={<CommandsPage />} />
-            <Route path="command/:id" element={<CommandPage />} />
-            <Route path="command" element={<CommandPage />} />
-            <Route path="attributes" element={<ComputedAttributesPage />} />
-            <Route path="attribute/:id" element={<ComputedAttributePage />} />
-            <Route path="attribute" element={<ComputedAttributePage />} />
-            <Route path="devices" element={<DevicesPage />} />
-            <Route path="device/:id/connections" element={<DeviceConnectionsPage />} />
-            <Route path="device/:id/command" element={<CommandDevicePage />} />
-            <Route path="device/:id" element={<DevicePage />} />
-            <Route path="device" element={<DevicePage />} />
-            <Route path="drivers" element={<DriversPage />} />
-            <Route path="driver/:id" element={<DriverPage />} />
-            <Route path="driver" element={<DriverPage />} />
-            <Route path="geofence/:id" element={<GeofencePage />} />
-            <Route path="geofence" element={<GeofencePage />} />
-            <Route path="groups" element={<GroupsPage />} />
-            <Route path="group/:id/connections" element={<GroupConnectionsPage />} />
-            <Route path="group/:id/command" element={<CommandGroupPage />} />
-            <Route path="group/:id" element={<GroupPage />} />
-            <Route path="group" element={<GroupPage />} />
-            <Route path="maintenances" element={<MaintenancesPage />} />
-            <Route path="maintenance/:id" element={<MaintenancePage />} />
-            <Route path="maintenance" element={<MaintenancePage />} />
-            <Route path="notifications" element={<NotificationsPage />} />
-            <Route path="notification/:id" element={<NotificationPage />} />
-            <Route path="notification" element={<NotificationPage />} />
-            <Route path="preferences" element={<PreferencesPage />} />
-            <Route path="server" element={<ServerPage />} />
-            <Route path="users" element={<UsersPage />} />
-            <Route path="user/:id/connections" element={<UserConnectionsPage />} />
-            <Route path="user/:id" element={<UserPage />} />
-            <Route path="user" element={<UserPage />} />
+            <Route path="settings">
+              <Route path="access/users" element={<AccessUsersPage />} />
+              <Route path="access/roles" element={<AccessRolesPage />} />
+              <Route path=":type/:id/share" element={<SharePage />} />
+              <Route path="accumulators/:deviceId" element={<AccumulatorsPage />} />
+              <Route path="announcement" element={<AnnouncementPage />} />
+              <Route path="calendars" element={<CalendarsPage />} />
+              <Route path="calendar/:id" element={<CalendarPage />} />
+              <Route path="calendar" element={<CalendarPage />} />
+              <Route path="commands" element={<CommandsPage />} />
+              <Route path="command/:id" element={<CommandPage />} />
+              <Route path="command" element={<CommandPage />} />
+              <Route path="attributes" element={<ComputedAttributesPage />} />
+              <Route path="attribute/:id" element={<ComputedAttributePage />} />
+              <Route path="attribute" element={<ComputedAttributePage />} />
+              <Route path="devices" element={<DevicesPage />} />
+              <Route path="device/:id/connections" element={<DeviceConnectionsPage />} />
+              <Route path="device/:id/command" element={<CommandDevicePage />} />
+              <Route path="device/:id" element={<DevicePage />} />
+              <Route path="device" element={<DevicePage />} />
+              <Route path="drivers" element={<DriversPage />} />
+              <Route path="driver/:id" element={<DriverPage />} />
+              <Route path="driver" element={<DriverPage />} />
+              <Route path="geofence/:id" element={<GeofencePage />} />
+              <Route path="geofence" element={<GeofencePage />} />
+              <Route path="groups" element={<GroupsPage />} />
+              <Route path="group/:id/connections" element={<GroupConnectionsPage />} />
+              <Route path="group/:id/command" element={<CommandGroupPage />} />
+              <Route path="group/:id" element={<GroupPage />} />
+              <Route path="group" element={<GroupPage />} />
+              <Route path="maintenances" element={<MaintenancesPage />} />
+              <Route path="maintenance/:id" element={<MaintenancePage />} />
+              <Route path="maintenance" element={<MaintenancePage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
+              <Route path="notification/:id" element={<NotificationPage />} />
+              <Route path="notification" element={<NotificationPage />} />
+              <Route path="preferences" element={<PreferencesPage />} />
+              <Route path="server" element={<ServerPage />} />
+              <Route path="users" element={<UsersPage />} />
+              <Route path="user/:id/connections" element={<UserConnectionsPage />} />
+              <Route path="user/:id" element={<UserPage />} />
+              <Route path="user" element={<UserPage />} />
+            </Route>
+
+            <Route path="reports">
+              <Route path="combined" element={<CombinedReportPage />} />
+              <Route path="chart" element={<ChartReportPage />} />
+              <Route path="events" element={<EventReportPage />} />
+              <Route path="geofences" element={<GeofenceReportPage />} />
+              <Route path="route" element={<PositionsReportPage />} />
+              <Route path="stops" element={<StopReportPage />} />
+              <Route path="summary" element={<SummaryReportPage />} />
+              <Route path="trips" element={<TripReportPage />} />
+              <Route path="scheduled" element={<ScheduledPage />} />
+              <Route path="statistics" element={<StatisticsPage />} />
+              <Route path="audit" element={<AuditPage />} />
+              <Route path="logs" element={<LogsPage />} />
+            </Route>
           </Route>
-
-          <Route path="reports">
-            <Route path="combined" element={<CombinedReportPage />} />
-            <Route path="chart" element={<ChartReportPage />} />
-            <Route path="events" element={<EventReportPage />} />
-            <Route path="geofences" element={<GeofenceReportPage />} />
-            <Route path="route" element={<PositionsReportPage />} />
-            <Route path="stops" element={<StopReportPage />} />
-            <Route path="summary" element={<SummaryReportPage />} />
-            <Route path="trips" element={<TripReportPage />} />
-            <Route path="scheduled" element={<ScheduledPage />} />
-            <Route path="statistics" element={<StatisticsPage />} />
-            <Route path="audit" element={<AuditPage />} />
-            <Route path="logs" element={<LogsPage />} />
-          </Route>
-        </Route>
-      </Routes>
-    </Suspense>
+        </Routes>
+      </Suspense>
+    </RouteErrorBoundary>
   );
 };
 

@@ -745,5 +745,14 @@
     "productSwitcherUnavailable": "Daftar produk tidak dapat ditampilkan saat ini.",
     "productSwitcherNone": "Tidak ada produk lain yang tersedia untuk Anda.",
     "productSwitcherGone": "Produk ini tidak lagi tersedia untuk Anda.",
-    "productSwitcherCheckFailed": "Akses Anda tidak dapat diperiksa. Coba lagi sebentar lagi."
+    "productSwitcherCheckFailed": "Akses Anda tidak dapat diperiksa. Coba lagi sebentar lagi.",
+    "errorScreen_error": "Halaman ini tidak dapat ditampilkan",
+    "errorScreen_errorDetail": "Terjadi kesalahan yang tidak terduga. Data Anda aman. Coba lagi atau muat ulang halaman, dan sebutkan referensi jika masalah berlanjut.",
+    "errorScreen_stale": "Versi yang lebih baru tersedia",
+    "errorScreen_staleDetail": "Halaman ini berasal dari versi aplikasi yang lebih lama dan sebagian tidak dapat dimuat. Muat ulang untuk mendapatkan versi terbaru.",
+    "errorScreen_offline": "Anda sedang offline",
+    "errorScreen_offlineDetail": "Sebagian halaman ini tidak dapat dimuat tanpa koneksi. Periksa koneksi Anda dan coba lagi.",
+    "errorScreenReload": "Muat ulang",
+    "errorScreenHome": "Kembali ke peta",
+    "settingsUpdateNow": "Perbarui sekarang"
 }

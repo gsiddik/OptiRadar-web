@@ -745,5 +745,14 @@
     "productSwitcherUnavailable": "Products cannot be listed right now.",
     "productSwitcherNone": "No other product is available to you.",
     "productSwitcherGone": "This product is no longer available to you.",
-    "productSwitcherCheckFailed": "Your access could not be checked. Try again in a moment."
+    "productSwitcherCheckFailed": "Your access could not be checked. Try again in a moment.",
+    "errorScreen_error": "This page could not be shown",
+    "errorScreen_errorDetail": "Something unexpected went wrong. Your data is safe. Try again or reload the page, and quote the reference if it keeps happening.",
+    "errorScreen_stale": "A newer version is available",
+    "errorScreen_staleDetail": "This page is from an older version of the app and part of it could not be loaded. Reload to get the current version.",
+    "errorScreen_offline": "You are offline",
+    "errorScreen_offlineDetail": "Part of this page could not be loaded without a connection. Check your connection and try again.",
+    "errorScreenReload": "Reload",
+    "errorScreenHome": "Back to the map",
+    "settingsUpdateNow": "Update now"
 }
