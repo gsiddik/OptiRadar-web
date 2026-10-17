@@ -9,6 +9,7 @@ import MapSwitcher from '../control/MapSwitcher';
 import { useAttributePreference, usePreference } from '../../common/util/preferences';
 import usePersistedState from '../../common/util/usePersistedState';
 import { mapImages } from './preloadImages';
+import { setCoordinateSystem } from './mapCoordinates';
 import useMapStyles from './useMapStyles';
 import { useAsyncTask } from '../../reactHelper';
 
@@ -121,7 +122,7 @@ const MapView = ({ children }) => {
       return;
     }
     updateReadyValue(false);
-    map.coordinateSystem = style.coordinateSystem;
+    setCoordinateSystem(style.coordinateSystem);
     map.setStyle(style.style, { diff: false });
     map.setTransformRequest(style.transformRequest);
     let timeoutId;

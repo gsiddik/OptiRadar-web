@@ -7,6 +7,7 @@ import useMapLayer from '../core/useMapLayer';
 import { useAsyncTask } from '../../reactHelper';
 import { usePreference } from '../../common/util/preferences';
 import { findFonts } from '../core/mapUtil';
+import { getCoordinateSystem } from '../core/mapCoordinates';
 import { useTranslation } from '../../common/components/LocalizationProvider';
 
 const PoiMap = () => {
@@ -24,7 +25,7 @@ const PoiMap = () => {
         const dom = new DOMParser().parseFromString(await file.text(), 'text/xml');
         const parsed = kml(dom);
         setData(
-          map.coordinateSystem === 'gcj02'
+          getCoordinateSystem() === 'gcj02'
             ? gcoord.transform(parsed, gcoord.WGS84, gcoord.GCJ02)
             : parsed,
         );
