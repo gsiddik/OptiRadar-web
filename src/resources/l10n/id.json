@@ -225,6 +225,7 @@
     "loginRegister": "Daftar",
     "loginLogin": "Masuk",
     "loginOpenId": "Masuk dengan OpenID",
+    "loginOpenIdFailed": "Masuk dengan OpenID gagal. Coba lagi, atau hubungi administrator Anda.",
     "loginFailed": "Alamat email atau sandi salah",
     "loginCreated": "Pengguna baru telah terdaftar",
     "loginResetSuccess": "Periksa email Anda",

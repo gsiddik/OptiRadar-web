@@ -80,6 +80,9 @@ const LoginPage = () => {
   }));
 
   const [failed, setFailed] = useState(false);
+  const [openIdFailed, setOpenIdFailed] = useState(
+    () => window.sessionStorage.getItem('openIdFailed') === 'true',
+  );
 
   const [email, setEmail] = usePersistedState('loginEmail', '');
   const [password, setPassword] = useState('');
@@ -151,6 +154,10 @@ const LoginPage = () => {
   useEffect(() => nativePostMessage('authentication'), []);
 
   useEffect(() => {
+    window.sessionStorage.removeItem('openIdFailed');
+  }, []);
+
+  useEffect(() => {
     const listener = (token) => handleTokenLoginRef.current(token);
     handleLoginTokenListeners.add(listener);
     return () => handleLoginTokenListeners.delete(listener);
@@ -199,6 +206,11 @@ const LoginPage = () => {
       </div>
       <div className={classes.container}>
         {useMediaQuery(theme.breakpoints.down('lg')) && <LogoImage />}
+        {openIdFailed && (
+          <Alert severity="error" onClose={() => setOpenIdFailed(false)}>
+            {t('loginOpenIdFailed')}
+          </Alert>
+        )}
         {!!announcement && !announcementShown && (
           <Alert severity="info" onClose={() => setAnnouncementShown(true)}>
             {announcement}

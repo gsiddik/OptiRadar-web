@@ -225,6 +225,7 @@
     "loginRegister": "Register",
     "loginLogin": "Log In",
     "loginOpenId": "Log In with OpenID",
+    "loginOpenIdFailed": "Sign-in with OpenID failed. Try again, or contact your administrator.",
     "loginFailed": "Incorrect email address or password",
     "loginCreated": "New user has been registered",
     "loginResetSuccess": "Check your email",

@@ -107,6 +107,9 @@ const Navigation = () => {
       if (searchParams.has('openid')) {
         if (searchParams.get('openid') === 'success') {
           generateLoginToken();
+        } else if (searchParams.get('openid') === 'error') {
+          // The server refused the sign-in; the login page tells the user (the reason stays in the server log).
+          window.sessionStorage.setItem('openIdFailed', 'true');
         }
         newParams.delete('openid');
       }
