@@ -12,6 +12,7 @@ import MotionController from './main/MotionController';
 import TermsDialog from './common/components/TermsDialog';
 import Loader from './common/components/Loader';
 import fetchOrThrow from './common/util/fetchOrThrow';
+import GovernanceController from './GovernanceController';
 
 const useStyles = makeStyles()(() => ({
   page: {
@@ -75,6 +76,7 @@ const App = () => {
   return (
     <>
       <SocketController />
+      <GovernanceController />
       <CachingController />
       <UpdateController />
       <MotionController />

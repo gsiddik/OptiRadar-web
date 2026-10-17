@@ -1,8 +1,16 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { messagesActions } from './store';
+import ApiError from './common/util/ApiError';
 
 export const pageSize = 50;
+
+// What to put in the message bar for a failed call: the words of the server, with the code and reference of a known
+// refusal so the bar can say it in the user's language.
+export const toMessage = (error) =>
+  error instanceof ApiError && error.code
+    ? { message: error.message, code: error.code, correlationId: error.correlationId }
+    : error.message;
 
 export const usePrevious = (value) => {
   const ref = useRef();
@@ -23,7 +31,7 @@ export const useAsyncTask = (effect, deps) => {
       })
       .catch((error) => {
         if (error.name !== 'AbortError') {
-          dispatch(messagesActions.push(error.message));
+          dispatch(messagesActions.push(toMessage(error)));
         }
       });
     return () => {
@@ -37,7 +45,7 @@ export const useAsyncTask = (effect, deps) => {
 export const useCatch = (method) => {
   const dispatch = useDispatch();
   return (...parameters) => {
-    method(...parameters).catch((error) => dispatch(messagesActions.push(error.message)));
+    method(...parameters).catch((error) => dispatch(messagesActions.push(toMessage(error))));
   };
 };
 
@@ -45,7 +53,7 @@ export const useCatchCallback = (method, deps) => {
   const dispatch = useDispatch();
   return useCallback(
     (...parameters) => {
-      method(...parameters).catch((error) => dispatch(messagesActions.push(error.message)));
+      method(...parameters).catch((error) => dispatch(messagesActions.push(toMessage(error))));
     },
     // eslint-disable-next-line @eslint-react/exhaustive-deps
     deps,

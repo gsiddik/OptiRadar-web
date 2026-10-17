@@ -62,6 +62,8 @@ const AnnouncementPage = lazy(() => import('./settings/AnnouncementPage'));
 const EmulatorPage = lazy(() => import('./other/EmulatorPage'));
 const StreamPage = lazy(() => import('./other/StreamPage'));
 const AuditPage = lazy(() => import('./reports/AuditPage'));
+const AccessUsersPage = lazy(() => import('./settings/access/AccessUsersPage'));
+const AccessRolesPage = lazy(() => import('./settings/access/AccessRolesPage'));
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -141,6 +143,8 @@ const Navigation = () => {
           <Route path="stream" element={<StreamPage />} />
 
           <Route path="settings">
+            <Route path="access/users" element={<AccessUsersPage />} />
+            <Route path="access/roles" element={<AccessRolesPage />} />
             <Route path=":type/:id/share" element={<SharePage />} />
             <Route path="accumulators/:deviceId" element={<AccumulatorsPage />} />
             <Route path="announcement" element={<AnnouncementPage />} />

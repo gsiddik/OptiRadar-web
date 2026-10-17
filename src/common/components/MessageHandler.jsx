@@ -26,9 +26,13 @@ const MessageHandler = () => {
   const cachedMessage = usePrevious(currentMessage);
 
   const activeMessage = hasMessage ? currentMessage : cachedMessage;
+  const known = activeMessage?.code ? t(`apiError_${activeMessage.code}`) : null;
   const message =
-    (typeof activeMessage === 'string' ? activeMessage : activeMessage?.message) ||
-    t('errorGeneral');
+    (known
+      ? `${known}${activeMessage.correlationId ? ` [${activeMessage.correlationId}]` : ''}`
+      : typeof activeMessage === 'string'
+        ? activeMessage
+        : activeMessage?.message) || t('errorGeneral');
   const severity = activeMessage?.severity || 'error';
   const { duration = severity === 'error' ? null : snackBarDurationShortMs } = activeMessage || {};
   const multiline = message.includes('\n');

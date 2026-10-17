@@ -14,11 +14,14 @@ import HelpIcon from '@mui/icons-material/Help';
 import PaymentIcon from '@mui/icons-material/Payment';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import CalculateIcon from '@mui/icons-material/Calculate';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from '../../common/components/LocalizationProvider';
 import { useAdministrator, useManager, useRestriction } from '../../common/util/permissions';
 import useFeatures from '../../common/util/useFeatures';
+import { useGovernedCan } from '../../common/util/useGovernance';
 import MenuItem from '../../common/components/MenuItem';
 
 const SettingsMenu = () => {
@@ -33,6 +36,7 @@ const SettingsMenu = () => {
   const billingLink = useSelector((state) => state.session.user.attributes.billingLink);
 
   const features = useFeatures();
+  const manageAccess = useGovernedCan('optiradar.access.manage');
 
   return (
     <>
@@ -126,6 +130,25 @@ const SettingsMenu = () => {
           <MenuItem title={t('settingsSupport')} link={supportLink} icon={<HelpIcon />} />
         )}
       </List>
+      {manageAccess && (
+        <>
+          <Divider />
+          <List>
+            <MenuItem
+              title={t('accessUsers')}
+              link="/settings/access/users"
+              icon={<ManageAccountsIcon />}
+              selected={location.pathname === '/settings/access/users'}
+            />
+            <MenuItem
+              title={t('accessRoles')}
+              link="/settings/access/roles"
+              icon={<AdminPanelSettingsIcon />}
+              selected={location.pathname === '/settings/access/roles'}
+            />
+          </List>
+        </>
+      )}
       {manager && (
         <>
           <Divider />
