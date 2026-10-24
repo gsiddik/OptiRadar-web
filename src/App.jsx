@@ -12,6 +12,7 @@ import MotionController from './main/MotionController';
 import TermsDialog from './common/components/TermsDialog';
 import Loader from './common/components/Loader';
 import fetchOrThrow from './common/util/fetchOrThrow';
+import { isEmbedded } from './common/util/embed';
 
 const useStyles = makeStyles()(() => ({
   page: {
@@ -81,7 +82,7 @@ const App = () => {
       <div className={classes.page}>
         <Outlet />
       </div>
-      {!desktop && (
+      {!desktop && !isEmbedded() && (
         <div className={classes.menu}>
           <BottomMenu />
         </div>

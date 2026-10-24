@@ -9,6 +9,7 @@ import { devicesActions } from './store';
 import { generateLoginToken } from './common/components/NativeInterface';
 import { useLocalization } from './common/components/LocalizationProvider';
 import fetchOrThrow from './common/util/fetchOrThrow';
+import { rememberEmbedToken } from './common/util/embed';
 
 const CombinedReportPage = lazy(() => import('./reports/CombinedReportPage'));
 const PositionsReportPage = lazy(() => import('./reports/PositionsReportPage'));
@@ -69,7 +70,7 @@ const Navigation = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const hasQueryParams = ['locale', 'token', 'uniqueId', 'openid'].some((key) =>
+  const hasQueryParams = ['locale', 'token', 'uniqueId', 'openid', 'embed'].some((key) =>
     searchParams.has(key),
   );
 
@@ -86,11 +87,17 @@ const Navigation = () => {
         newParams.delete('locale');
       }
 
-      if (searchParams.has('token')) {
+      if (searchParams.has('embed') && searchParams.has('token')) {
+        rememberEmbedToken(searchParams.get('token'));
+        newParams.delete('embed');
+        newParams.delete('token');
+      } else if (searchParams.has('token')) {
         const token = searchParams.get('token');
         await fetch(`/api/session?token=${encodeURIComponent(token)}`, { signal });
         newParams.delete('token');
       }
+
+      newParams.delete('embed');
 
       if (searchParams.has('uniqueId')) {
         const response = await fetchOrThrow(
