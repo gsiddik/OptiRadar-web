@@ -13,6 +13,7 @@ import {
   nativePostMessage,
 } from './common/components/NativeInterface';
 import fetchOrThrow from './common/util/fetchOrThrow';
+import { embedToken } from './common/util/embed';
 
 const logoutCode = 4000;
 
@@ -90,7 +91,9 @@ const SocketController = () => {
       socketRef.current.close();
     }
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const socket = new WebSocket(`${protocol}//${window.location.host}/api/socket`);
+    const token = embedToken();
+    const query = token ? `?token=${encodeURIComponent(token)}` : '';
+    const socket = new WebSocket(`${protocol}//${window.location.host}/api/socket${query}`);
     socketRef.current = socket;
 
     socket.onopen = () => {

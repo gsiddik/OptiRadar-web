@@ -13,6 +13,7 @@ import EventsDrawer from './EventsDrawer';
 import useFilter from './useFilter';
 import MainToolbar from './MainToolbar';
 import { useAttributePreference } from '../common/util/preferences';
+import { isEmbedded } from '../common/util/embed';
 
 const MainMap = lazy(() => import('./MainMap'));
 
@@ -159,7 +160,7 @@ const MainPage = () => {
             <DeviceList devices={filteredDevices} />
           </Paper>
         </div>
-        {desktop && (
+        {desktop && !isEmbedded() && (
           <div className={classes.footer}>
             <BottomMenu />
           </div>

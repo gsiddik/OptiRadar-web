@@ -11,8 +11,10 @@ import NativeInterface from './common/components/NativeInterface';
 import ServerProvider from './ServerProvider';
 import ErrorBoundary from './ErrorBoundary';
 import AppThemeProvider from './AppThemeProvider';
+import { installEmbedFetch } from './common/util/embed';
 
 preloadImages();
+installEmbedFetch();
 
 const root = createRoot(document.getElementById('root'));
 root.render(
