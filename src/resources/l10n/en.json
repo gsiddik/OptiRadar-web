@@ -241,6 +241,8 @@
     "deviceIdentifier": "Identifier",
     "deviceModel": "Model",
     "deviceContact": "Contact",
+    "deviceRegistrationNumber": "Registration number",
+    "deviceRegistrationNumberHelp": "Shared with OptiFleet and the other platforms, so the vehicle is entered once.",
     "deviceCategory": "Category",
     "deviceLastUpdate": "Last Update",
     "deviceCommand": "Command",

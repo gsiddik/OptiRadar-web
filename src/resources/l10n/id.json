@@ -241,6 +241,8 @@
     "deviceIdentifier": "Pengenal",
     "deviceModel": "Model",
     "deviceContact": "Kontak",
+    "deviceRegistrationNumber": "Nomor polisi",
+    "deviceRegistrationNumberHelp": "Dibagikan ke OptiFleet dan platform lain, sehingga kendaraan cukup diinput sekali.",
     "deviceCategory": "Kategori",
     "deviceLastUpdate": "Pembaruan terakhir",
     "deviceCommand": "Perintah",

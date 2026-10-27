@@ -106,6 +106,20 @@ const DevicePage = () => {
                 label={t('sharedPhone')}
               />
               <TextField
+                value={item.attributes?.registrationNumber || ''}
+                onChange={(event) => {
+                  const attributes = { ...item.attributes };
+                  if (event.target.value) {
+                    attributes.registrationNumber = event.target.value;
+                  } else {
+                    delete attributes.registrationNumber;
+                  }
+                  setItem({ ...item, attributes });
+                }}
+                label={t('deviceRegistrationNumber')}
+                helperText={t('deviceRegistrationNumberHelp')}
+              />
+              <TextField
                 value={item.model || ''}
                 onChange={(event) => setItem({ ...item, model: event.target.value })}
                 label={t('deviceModel')}
